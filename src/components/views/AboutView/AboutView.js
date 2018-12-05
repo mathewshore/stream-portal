@@ -8,7 +8,7 @@ const styles = theme => ({
 });
 
 const AboutView = (props) => {
-    const { classes } = props;
+    // const { classes } = props;
 
     return (
         <ViewWrapper header="About">

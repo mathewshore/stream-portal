@@ -21,6 +21,7 @@ const palette = createPalette({
         dark: 'white'
     },
     text: {
+        light: grey[600],
         main: grey[800],
         contrastText: '#fff'
     },

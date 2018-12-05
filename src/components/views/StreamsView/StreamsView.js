@@ -25,6 +25,7 @@ const TopGamesView = () => (
             {(streamsStore) => {
                 const { state } = streamsStore;
                 const gameName = getGameName();
+
                 return (
                     <ViewWrapper
                         header={gameName}

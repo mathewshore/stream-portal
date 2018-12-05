@@ -23,6 +23,7 @@ const styles = theme => ({
         width: '100%'
     },
     gameItemName: {
+        ...theme.oneLineTextEllipsis,
         fontSize: 14
     },
     gameItemDetails: {

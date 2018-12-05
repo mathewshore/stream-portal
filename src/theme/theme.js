@@ -10,6 +10,11 @@ const theme = createMuiTheme({
     },
     palette,
     overrides,
+    oneLineTextEllipsis: {
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
+    },
     border: {
         main: `1px solid ${grey[400]}`,
         radius: 2
