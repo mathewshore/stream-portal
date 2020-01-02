@@ -20,7 +20,9 @@ export default class TopGamesContainer extends Container<StreamsState> {
         streams: [],
     };
 
-    setError = error => this.setState({ error: error.response.data });
+    setError = error => {
+        this.setState({ error: error.response.data });
+    };
 
     fetchStreams = (gameName, limit = '') => {
         this.setState({ error: null });
@@ -32,9 +34,8 @@ export default class TopGamesContainer extends Container<StreamsState> {
 
         axios.get(`streams/?game=${gameName}`)
             .then((response) => {
-                console.log('streams', response);
                 if (response.status === 200) {
-                    this.setState({ streams: response.data.streams })
+                    this.setState({ streams: response.data.data })
                 }
                 this.setState({ isLoading: false, isLoadingMore: false });
             })

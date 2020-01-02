@@ -31,7 +31,7 @@ const NavBar = (props) => {
                 classes={{ root: classes.navLinkButtonRoot }}
                 onClick={(e) => onLinkClick(e, viewRoutes.root)}
             >
-                Logo
+                StreamPortal
             </Button>
             <Button
                 classes={{ root: classes.navLinkButtonRoot }}

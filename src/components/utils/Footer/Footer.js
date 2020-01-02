@@ -21,7 +21,7 @@ const Footer = (props) => {
     const { classes } = props;
     return (
         <div className={classes.footerContainer}>
-            Powered by Twitch API
+            © 2020 Matias Ranta. All rights reserved.
         </div>
     );
 };

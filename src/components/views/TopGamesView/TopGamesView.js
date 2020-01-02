@@ -15,8 +15,15 @@ const TopGamesView = () => (
                 return (
                     <ViewWrapper {...pick(state, ['error', 'isLoading'])}>
                         <TopGamesViewContent
-                            {...pick(state, ['isLoading', 'isLoadingMore', 'topGames'])}
-                            {...pick(topGamesStore, ['fetchTopGames', 'fetchMoreTopGames'])}
+                            {...pick(state, [
+                                'isLoading',
+                                'isLoadingMore',
+                                'topGames'
+                            ])}
+                            {...pick(topGamesStore, [
+                                'fetchTopGames',
+                                'fetchMoreTopGames'
+                            ])}
                         />
                     </ViewWrapper>
                 );

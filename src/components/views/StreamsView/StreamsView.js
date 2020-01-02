@@ -28,13 +28,17 @@ const TopGamesView = () => (
 
                 return (
                     <ViewWrapper
+                        {...pick(state, [
+                            'error',
+                            'isLoading',
+                            'isLoadingMore'
+                        ])}
                         header={gameName}
-                        {...pick(state, ['error', 'isLoading', 'isLoadingMore'])}
                     >
                         <StreamsViewContent
+                            {...pick(streamsStore, ['fetchStreams'])}
                             gameName={gameName}
                             streams={state.streams}
-                            {...pick(streamsStore, ['fetchStreams'])}
                         />
                     </ViewWrapper>
                 );

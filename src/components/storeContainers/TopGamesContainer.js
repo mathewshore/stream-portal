@@ -1,9 +1,8 @@
 import axios from '../../axios';
-import size from 'lodash/size';
 import { Container } from 'unstated';
 
 
-const LIMIT_INCREASE = 12;
+const RESULT_LIMIT = 12;
 
 type TopGamesState = {
     error: any,
@@ -15,28 +14,43 @@ type TopGamesState = {
 export default class TopGamesContainer extends Container<TopGamesState> {
     state = {
         error: null,
+        nextPageString: undefined,
         isLoading: false,
         isLoadingMore: false,
-        topGames: [],
+        topGames: []
     };
 
-    setError = error => this.setState({ error: error.response.data });
+    setError = error => {
+        console.log(error);
+        this.setState({ error: 'Error' });
+    };
 
-    fetchTopGames = (limit = '') => {
+    fetchTopGames = (moreString = '') => {
         this.setState({ error: null });
-        if (limit) {
+
+        if (moreString) {
             this.setState({ isLoadingMore: true });
         } else {
             this.setState({ isLoading: true });
         }
 
-        const stringQueryParameters = limit ? `/?${limit}` : '';
-        axios.get(`games/top${stringQueryParameters}`)
+        const moreParameter = moreString ? `&${moreString}` : '';
+        const resultLimitParameter = `first=${RESULT_LIMIT}`;
+        axios.get(`games/top/?${resultLimitParameter}${moreParameter}`)
             .then((response) => {
                 if (response.status === 200) {
-                    this.setState({ topGames: response.data.top });
+                    const topGames = moreString
+                        ? this.state.topGames.concat(response.data.data)
+                        : response.data.data;
+                    this.setState({
+                        topGames,
+                        nextPageString: response.data.pagination.cursor
+                    });
                 }
-                this.setState({ isLoading: false, isLoadingMore: false });
+                this.setState({
+                    isLoading: false,
+                    isLoadingMore: false
+                });
             })
             .catch((error) => {
                 this.setError(error);
@@ -44,5 +58,8 @@ export default class TopGamesContainer extends Container<TopGamesState> {
             });
     };
 
-    fetchMoreTopGames = () => this.fetchTopGames(`limit=${size(this.state.topGames) + LIMIT_INCREASE}`);
+    fetchMoreTopGames = () => {
+        const moreString = `after=${this.state.nextPageString}`;
+        this.fetchTopGames(moreString);
+    };
 }

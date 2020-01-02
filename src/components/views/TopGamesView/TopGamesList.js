@@ -39,16 +39,28 @@ const TopGamesList = (props) => {
 
     return (
         <Grid container spacing={16}>
-            {map(props.topGames, ({ game, viewers }) => {
-                // const imageUrl = game.box.template.replace('{width}x{height}', '285x380');
+            {map(props.topGames, (game) => {
+                console.log('props.topGames:', props.topGames)
+                const imageUrl = game.box_art_url.replace('{width}x{height}', '285x380');
                 return (
-                    <Grid item xs={6} md={2} key={game._id}>
-                        <Link to={`${viewRoutes.games}${game.name}`} className={classes.gameItemLink}>
+                    <Grid item xs={6} md={2} key={game.id}>
+                        <Link
+                            to={`${viewRoutes.games}${game.name}`}
+                            className={classes.gameItemLink}
+                        >
                             <div className={classes.gameItemPaper}>
-                                <img className={classes.gameImage} src={game.box.large} alt={game.name} />
+                                <img
+                                    className={classes.gameImage}
+                                    src={imageUrl}
+                                    alt={game.name}
+                                />
                                 <div className={classes.gameItemDetails}>
-                                    <div className={classes.gameItemName}>{game.name}</div>
-                                    <div className={classes.gameItemViewerCount}>{viewers} viewers</div>
+                                    <div className={classes.gameItemName}>
+                                        {game.name}
+                                    </div>
+                                    {/* <div className={classes.gameItemViewerCount}>
+                                        {viewers} viewers
+                                    </div> */}
                                 </div>
                             </div>
                         </Link>
